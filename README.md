@@ -17,24 +17,6 @@ Log collection was enabled from multiple sources on both virtual machines, and t
 
 Using this information, the capabilities of Microsoft Sentinel were leveraged to analyze and visualize the collected data. Interactive maps, custom alerts, and simulated security incidents were created, providing a robust platform to practice and develop incident response skills.
 
-## Metrics and attack maps BEFORE hardening
-
-The following table shows the metrics we measured in our insecure environment for 24 hours.
-
-| Metric                                 | Value                         |
-|----------------------------------------|-------------------------------|
-| Start Time                             | 2025-05-02T18:24:38.0926231Z |
-| Stop Time                              | 2025-05-03T18:24:38.0926231Z |
-| Security Events (Windows VMs)          | 94,226                        |
-| Syslog (Linux VMs)                     | 6,911                         |
-| SecurityAlert (Microsoft Defender for Cloud) | 70                    |
-| SecurityIncident (Sentinel Incidents)  | 132                           |
-| NSG Inbound Malicious Flows Allowed    | 260                           |
-
-![linx-ssh-auth-failure](https://github.com/user-attachments/assets/36c68291-e5c5-46de-96a1-6b34e3a14cf9)
-![windows-rdp-auth-fail](https://github.com/user-attachments/assets/6fa729cb-eec3-4c20-b51a-815dd30a1b92)
-![nsg-malicious-allowed-in](https://github.com/user-attachments/assets/e8459151-f5f0-49a7-815f-3ddddb452f04)
-
 ## Brute Force attempts incident response
 
 For documentation purposes, the following section focuses on a brute force attack targeting the Windows virtual machine. Although similar brute force alerts were also detected on the Linux VM, these will be closed as false positives without further analysis to avoid redundancy. The attack pattern was essentially the same, differing only in the operating system being targeted.
@@ -96,4 +78,40 @@ Although the activity was clearly malicious, no compromise occurred. All authent
 Action Taken:
 
 - This incident has been closed as a false positive in the context of the test environment. However, security controls will be re-enabled.
+
+## Metrics and attack maps BEFORE hardening
+
+The following table shows the metrics we measured in our insecure environment for 24 hours.
+
+| Metric                                 | Value                         |
+|----------------------------------------|-------------------------------|
+| Start Time                             | 2025-05-02T18:24:38.0926231Z |
+| Stop Time                              | 2025-05-03T18:24:38.0926231Z |
+| Security Events (Windows VMs)          | 94,226                        |
+| Syslog (Linux VMs)                     | 6,911                         |
+| SecurityAlert (Microsoft Defender for Cloud) | 70                    |
+| SecurityIncident (Sentinel Incidents)  | 132                           |
+| NSG Inbound Malicious Flows Allowed    | 260                           |
+
+![linx-ssh-auth-failure](https://github.com/user-attachments/assets/36c68291-e5c5-46de-96a1-6b34e3a14cf9)
+![windows-rdp-auth-fail](https://github.com/user-attachments/assets/6fa729cb-eec3-4c20-b51a-815dd30a1b92)
+![nsg-malicious-allowed-in](https://github.com/user-attachments/assets/e8459151-f5f0-49a7-815f-3ddddb452f04)
+
+## Metrics and attack maps AFTER hardening
+
+Following the implementation of security controls and network restrictions, a second 24-hour observation period showed a dramatic reduction in malicious and anomalous activity. Windows security events dropped by 95.47%, Syslog entries by 99.99%, and both Defender for Cloud alerts and Sentinel incidents fell to zero, indicating a 100% mitigation of previously observed attack vectors. All attack map queries returned no results.
+
+| Metric                                 | Value                         |
+|----------------------------------------|-------------------------------|
+| Start Time                             | 2025-05-22T15:17:42.0947283Z |
+| Stop Time                              | 2025-05-23T15:17:42.0947283Z |
+| Security Events (Windows VMs)          | 4271                      |
+| Syslog (Linux VMs)                     | 1                         |
+| SecurityAlert (Microsoft Defender for Cloud) | 0                    |
+| SecurityIncident (Sentinel Incidents)  | 0                           |
+| NSG Inbound Malicious Flows Allowed    | 0                           |
+
+
+
+
 
